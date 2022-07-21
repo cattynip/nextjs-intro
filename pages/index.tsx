@@ -1,16 +1,10 @@
-import { useState } from "react";
+import NavBar from "../components/NavBar";
 
 function Home() {
-  const [counter, setCounter] = useState(1);
-
-  const increaseCounter = () => {
-    setCounter((prev) => prev + 1);
-  }
-
   return (
     <div>
-      <h1>Hello World {counter}</h1>
-      <button onClick={increaseCounter}>+</button>
+      <NavBar />
+      <h1>Home Page</h1>
     </div>
   );
 }
