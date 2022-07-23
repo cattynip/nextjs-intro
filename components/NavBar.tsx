@@ -17,7 +17,16 @@ function NavBar() {
           About
         </a>
       </Link>
-    </nav >
+      <style jsx global>{`
+        a {
+          text-decoration: none;
+          font-weight: 900;
+        }
+        .active {
+          color: red;
+        }
+      `}</style>
+    </nav>
   );
 }
 
