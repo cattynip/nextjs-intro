@@ -17,19 +17,6 @@ function NavBar() {
           About
         </a>
       </Link>
-      <style jsx>{`
-        nav {
-          background-color: tomato;
-        }
-        a {
-          text-decoration: none;
-          font-weight: 900;
-        }
-
-        .active {
-          color: yellow;
-        }
-      `}</style>
     </nav >
   );
 }
