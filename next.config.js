@@ -4,7 +4,7 @@ const nextConfig = {
   swcMinify: true,
   async redirects() {
     return [
-       {
+      {
         source: "/old-blog/:path*",
         destination: "/new-sexy-blog/:path*",
         permanent: false,

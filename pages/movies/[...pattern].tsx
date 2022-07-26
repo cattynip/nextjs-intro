@@ -67,7 +67,7 @@ function Detail() {
 
   return (
     <div>
-      <Seo title={title} />
+      <Seo title={title || "Loading..."} />
       <h1>{title || "Loading..."}</h1>
     </div>
   );
