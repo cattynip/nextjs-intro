@@ -1,4 +1,5 @@
-import { useRouter } from "next/router";
+import { GetServerSidePropsResult } from "next";
+import { NextRouter, useRouter } from "next/router";
 
 interface IMovie {
   adult: boolean;
@@ -58,14 +59,25 @@ interface ISpokenLanguages {
   name: string;
 }
 
+type MovieDetailParams = [string, string] | [];
+
 function Detail() {
-  const router = useRouter();
+  const router: NextRouter = useRouter();
+  const [title, id] = (router.query.pattern || []) as MovieDetailParams;
 
   return (
     <div>
-      <h1>{router.query.title || "Loading..."}</h1>
+      <h1>{title || "Loading..."}</h1>
     </div>
   );
 }
+
+export const getServerSideProps = async ({ params: { pattern }) => {
+  return {
+    props: {
+      pattern,
+    },
+  }
+};
 
 export default Detail;

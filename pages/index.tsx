@@ -34,14 +34,7 @@ function Home({ results }: InferGetServerSidePropsType<GetServerSideProps>) {
   const router = useRouter();
 
   const onClickMovieCard = ({ id, title }: IMovieClickProps) => {
-    router.push({
-      pathname: `/movies/${id}`,
-      query: {
-        title,
-      },
-    },
-      `movies/${id}`,
-    );
+    router.push(`/movies/${title}/${id}`);
   };
 
   return (
@@ -54,22 +47,14 @@ function Home({ results }: InferGetServerSidePropsType<GetServerSideProps>) {
       <div className="movies">
         {results?.map((movie: IPopularMoviesItem) => (
           <div className="movie" key={movie.id} onClick={() => { onClickMovieCard({ id: movie.id, title: movie.original_title }) }}>
-            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
             <h4>
-              <Link
-                href={{
-                  pathname: `/movies/${movie.id}`,
-                  query: {
-                    title: movie.original_title,
-                  },
-                }}
-                as={`/movies/${movie.id}`}
-              >
+              <Link href={`/movies/${movie.original_title}/${movie.id}`}>
                 <a>
                   {movie.original_title}
                 </a>
               </Link>
             </h4>
+            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
           </div>
         ))}
       </div>
@@ -119,7 +104,7 @@ function Home({ results }: InferGetServerSidePropsType<GetServerSideProps>) {
  * Then, return of this function will be placed in Home function that is called by <Components /> component that receives results of this function as a props.
  * And, <Components /> component will give a results props to Home function.
 */
-export async function getServerSideProps({ }: GetServerSideProps) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const { results }: IPopularMovies = await (await fetch("http://localhost:3000/api/movies")).json();
 
   return {
