@@ -1,5 +1,5 @@
-import { GetServerSidePropsResult } from "next";
 import { NextRouter, useRouter } from "next/router";
+import Seo from "../../components/Seo";
 
 interface IMovie {
   adult: boolean;
@@ -67,16 +67,17 @@ function Detail() {
 
   return (
     <div>
+      <Seo title={title} />
       <h1>{title || "Loading..."}</h1>
     </div>
   );
 }
 
-export const getServerSideProps = async ({ params: { pattern }) => {
+export const getServerSideProps = async (context) => {
   return {
     props: {
-      pattern,
-    },
+      pattern: context.params.pattern
+    }
   }
 };
 
