@@ -21,6 +21,10 @@ function NavBar() {
             About
           </a>
         </Link>
+
+        <a href="https://github.com/Novelier-Webbelier/nextjs-intro" target={"_blank"}>
+          Github
+        </a>
       </div>
 
       <style jsx global>{`
