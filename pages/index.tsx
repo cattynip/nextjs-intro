@@ -1,7 +1,9 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import Seo from "../components/Seo";
 
-interface IPopularMovieItem {
+interface IPopularMoviesItem {
   adult: boolean,
   backdrop_path: string;
   genre_ids: number[];
@@ -18,12 +20,30 @@ interface IPopularMovieItem {
   vote_count: number;
 }
 
-interface IPopularMovie {
+interface IPopularMovies {
   page: string;
-  results: IPopularMovieItem[];
+  results: IPopularMoviesItem[];
+}
+
+interface IMovieClickProps {
+  id: number;
+  title: string;
 }
 
 function Home({ results }: InferGetServerSidePropsType<GetServerSideProps>) {
+  const router = useRouter();
+
+  const onClickMovieCard = ({ id, title }: IMovieClickProps) => {
+    router.push({
+      pathname: `/movies/${id}`,
+      query: {
+        title,
+      },
+    },
+      `movies/${id}`,
+    );
+  };
+
   return (
     <div className="box">
       <Seo title="Home" />
@@ -32,10 +52,24 @@ function Home({ results }: InferGetServerSidePropsType<GetServerSideProps>) {
       </div>
 
       <div className="movies">
-        {results?.map((movie: IPopularMovieItem) => (
-          <div className="movie" key={movie.id}>
+        {results?.map((movie: IPopularMoviesItem) => (
+          <div className="movie" key={movie.id} onClick={() => { onClickMovieCard({ id: movie.id, title: movie.original_title }) }}>
             <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
-            <h4>{movie.original_title}</h4>
+            <h4>
+              <Link
+                href={{
+                  pathname: `/movies/${movie.id}`,
+                  query: {
+                    title: movie.original_title,
+                  },
+                }}
+                as={`/movies/${movie.id}`}
+              >
+                <a>
+                  {movie.original_title}
+                </a>
+              </Link>
+            </h4>
           </div>
         ))}
       </div>
@@ -76,7 +110,7 @@ function Home({ results }: InferGetServerSidePropsType<GetServerSideProps>) {
           text-align: center;
         }
       `}</style>
-    </div>
+    </div >
   );
 }
 
@@ -86,7 +120,7 @@ function Home({ results }: InferGetServerSidePropsType<GetServerSideProps>) {
  * And, <Components /> component will give a results props to Home function.
 */
 export async function getServerSideProps({ }: GetServerSideProps) {
-  const { results }: IPopularMovie = await (await fetch("http://localhost:3000/api/movies")).json();
+  const { results }: IPopularMovies = await (await fetch("http://localhost:3000/api/movies")).json();
 
   return {
     props: {
