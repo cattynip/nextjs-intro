@@ -5,9 +5,11 @@ interface ISeoProps {
 }
 
 function Seo({ title }: ISeoProps) {
-  return <Head>
-    <title>{title} | Next Movies</title>
-  </Head>;
+  return (
+    <Head>
+      <title>{title} | Next Movies</title>
+    </Head>
+  );
 }
 
 export default Seo;
