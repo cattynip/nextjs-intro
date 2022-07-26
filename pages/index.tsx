@@ -25,21 +25,42 @@ interface IPopularMovie {
 
 function Home({ results }: InferGetServerSidePropsType<GetServerSideProps>) {
   return (
-    <div className="container">
+    <div className="box">
       <Seo title="Home" />
-      {results?.map((movie: IPopularMovieItem) => (
-        <div className="movie" key={movie.id}>
-          <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
-          <h4>{results.original_title}</h4>
-        </div>
-      ))}
+      <div className="title">
+        <h1>Home</h1>
+      </div>
+
+      <div className="movies">
+        {results?.map((movie: IPopularMovieItem) => (
+          <div className="movie" key={movie.id}>
+            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+            <h4>{movie.original_title}</h4>
+          </div>
+        ))}
+      </div>
+
       <style jsx>{`
+        .box {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          width: 100%;
+        }
         .container {
+          width: 100%;
+        }
+        .movies {
           display: grid;
           grid-template-columns: 1fr 1fr;
           padding: 20px;
           gap: 20px;
           text-align: center;
+          width: 100%;
+        }
+        .movie {
+          cursor: pointer;
         }
         .movie img {
           max-width: 100%;
@@ -51,7 +72,7 @@ function Home({ results }: InferGetServerSidePropsType<GetServerSideProps>) {
           transform: scale(1.05) translateY(-10px);
         }
         .movie h4 {
-          font-size: 18px;
+          font-size: 22px;
           text-align: center;
         }
       `}</style>

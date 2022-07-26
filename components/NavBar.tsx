@@ -22,6 +22,12 @@ function NavBar() {
           </a>
         </Link>
 
+        <Link href="/movies">
+          <a className={router.pathname === "/movies" ? "active" : ""}>
+            Movies
+          </a>
+        </Link>
+
         <a href="https://github.com/Novelier-Webbelier/nextjs-intro" target={"_blank"}>
           Github
         </a>
