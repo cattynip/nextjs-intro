@@ -49,6 +49,7 @@ function Home() {
           grid-template-columns: 1fr 1fr;
           padding: 20px;
           gap: 20px;
+          text-align: center;
         }
         .movie img {
           max-width: 100%;
